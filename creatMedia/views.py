@@ -11,18 +11,20 @@ def createMedia(request):
     form = CreateMediaForm()
 
     if request.method == 'POST':
+        extension = request.FILES['image'].name.split('.')
+        time_of_post = str(datetime.now().timestamp()) + '.' + extension[len(extension) - 1]
         data = {
             'encoding': 'utf-8',
             'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'],
             'userName': request.POST['userName'],
-            'image': str(datetime.now().timestamp()) + request.FILES['image'].name,
+            'image': time_of_post,
             'description': request.POST['description']
         }
         form = CreateMediaForm(data)
         if form.is_valid():
-            imageName = str(datetime.now().timestamp()) + request.FILES['image'].name
+            image_name = time_of_post
             fs = FileSystemStorage()
-            fs.save(imageName, request.FILES['image'])
+            fs.save(image_name, request.FILES['image'])
             form.save()
             return redirect('/')
         else:
