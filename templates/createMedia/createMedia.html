@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Philosopher', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            background: #ae0000;
+            color: white;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 25px 15px;
+            box-sizing: border-box;
+        }
+
+        header > a {
+            font-weight: 900;
+            font-size: 2em;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            display: block;
+            width: 500px;
+            background: #efefef;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 50px 0;
+        }
+
+        form > label {
+            display: flex;
+            flex-direction: column;
+            margin: 20px 0;
+        }
+
+        form > label > input {
+            margin: 10px 0;
+            padding: 10px;
+            border: solid black 2px;
+            border-radius: 5px;
+        }
+
+        form > label > textarea {
+            margin: 10px 0;
+            padding: 10px;
+            border: solid black 2px;
+            border-radius: 5px;
+            height: 100px;
+        }
+
+        form > button {
+            width: 100%;
+            padding: 10px;
+            background: #ae0000;
+            text-align: center;
+            color: white;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'getFeeds' %}">Media Book</a>
+        <nav>
+            <a href="{% url 'createMedia' %}">Add New Media</a>
+        </nav>
+    </header>
+
+    <main>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>
+                <span>User Name:</span>
+                <input name="userName" type="text" maxlength="20">
+            </label>
+            <label>
+                <span>Select Images:</span>
+                <input name="image" type="file" accept="image/*">
+            </label>
+            <label>
+                <span>Description:</span>
+                <textarea name="description" maxlength="500"></textarea>
+            </label>
+
+            <button type="submit">Post Photo</button>
+        </form>
+    </main>
+</body>
+</html>

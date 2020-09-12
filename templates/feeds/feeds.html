@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Philosopher', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            background: #ae0000;
+            color: white;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 25px 15px;
+            box-sizing: border-box;
+        }
+
+        header > a {
+            font-weight: 900;
+            font-size: 2em;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            height: 100vw;
+            width: 100vh;
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            align-items: stretch;
+        }
+
+        .post {
+            display: block;
+            width: 300px;
+            height: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background: #e5e5e5;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+        .post:hover {
+            background: gray;
+            transition: background-color 500ms linear;
+            cursor: pointer;
+        }
+
+        .post > .name {
+            font-weight: 800;
+        }
+
+        .post > img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'getFeeds' %}">Media Book</a>
+        <nav>
+            <a href="{% url 'createMedia' %}">Add New Media</a>
+        </nav>
+    </header>
+
+    <main>
+        {% for photo in photos %}
+            <div class="post">
+                <div class="name">{{ photo.userName }}</div>
+                <small>{{ photo.time | date }}</small>
+                <img src="media/{{ photo.image }}" alt="Photo">
+                <div>{{ photo.description }}</div>
+            </div>
+        {% endfor %}
+    </main>
+</body>
+</html>
